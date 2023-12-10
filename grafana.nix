@@ -46,6 +46,12 @@ in {
       description = "Path to a file containing the admin user password.";
     };
 
+    secret-key-file = mkOption {
+      type = str;
+      description =
+        "Path to a file containing a sceret key used for encryption.";
+    };
+
     port = mkOption {
       type = port;
       description = "Port on which to listen for HTTP requests (on localhost)";
