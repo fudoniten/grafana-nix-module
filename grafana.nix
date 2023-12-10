@@ -135,8 +135,8 @@ in {
           token_url = "https://${cfg.oauth.hostname}/application/o/token/";
           api_url = "https://${cfg.oauth.hostname}/application/o/userinfo/";
           role_attribute_path = concatStringsSep " || " [
-            "contains(groups[*], 'Metrics Admins') && 'Admin'"
-            "contains(groups[*], 'Metrics Editors') && 'Editor'"
+            "contains(groups[*], 'Metrics Admin') && 'Admin'"
+            "contains(groups[*], 'Metrics Editor') && 'Editor'"
             "'Viewer'"
           ];
         };
