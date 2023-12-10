@@ -124,22 +124,22 @@ in {
           signout_redirect_url =
             "https://${cfg.oauth.hostname}/application/o/${cfg.oauth.slug}/end-session/";
           oauth_auto_login = true;
+        };
 
-          generic_oauth = {
-            name = "Authentik";
-            enabled = true;
-            client_id = "$__file{${cfg.oauth.client-id}}";
-            client_secret = "$__file{${cfg.oauth.client-secret}}";
-            scopes = "openid email profile";
-            auth_url = "https://${cfg.oauth.hostname}/application/o/authorize/";
-            token_url = "https://${cfg.oauth.hostname}/application/o/token/";
-            api_url = "https://${cfg.oauth.hostname}/application/o/userinfo/";
-            role_attribute_path = concatStringsSep " || " [
-              "contains(groups[*], 'Metrics Admins') && 'Admin'"
-              "contains(groups[*], 'Metrics Editors') && 'Editor'"
-              "'Viewer'"
-            ];
-          };
+        "auth.generic_oauth" = mkIf (!isNull cfg.oauth) {
+          name = "Authentik";
+          enabled = true;
+          client_id = "$__file{${cfg.oauth.client-id}}";
+          client_secret = "$__file{${cfg.oauth.client-secret}}";
+          scopes = "openid email profile";
+          auth_url = "https://${cfg.oauth.hostname}/application/o/authorize/";
+          token_url = "https://${cfg.oauth.hostname}/application/o/token/";
+          api_url = "https://${cfg.oauth.hostname}/application/o/userinfo/";
+          role_attribute_path = concatStringsSep " || " [
+            "contains(groups[*], 'Metrics Admins') && 'Admin'"
+            "contains(groups[*], 'Metrics Editors') && 'Editor'"
+            "'Viewer'"
+          ];
         };
       };
     };
