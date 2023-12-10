@@ -94,6 +94,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = [
+      "d ${cfg.state-directory} 0700 ${config.systemd.services.grafana.serviceConfig.User} root - -"
+    ];
+
     services.grafana = {
       enable = true;
       dataDir = "${cfg.state-directory}/data";
