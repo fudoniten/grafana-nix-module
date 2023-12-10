@@ -65,18 +65,18 @@ in {
           description = "Host of the OAuth server.";
         };
 
-        oauth.client-id = mkOption {
+        client-id = mkOption {
           type = str;
           description = "Path to file containing the Grafana OAuth client ID.";
         };
 
-        oauth.client-secret = mkOption {
+        client-secret = mkOption {
           type = str;
           description =
             "Path to file containing the Grafana OAuth client secret.";
         };
 
-        oauth.slug = mkOption {
+        slug = mkOption {
           type = str;
           description = "The application slug on the OAuth server.";
         };
@@ -88,7 +88,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    grafana = {
+    services.grafana = {
       enable = true;
       dataDir = "${cfg.state-directory}/data";
       settings = {
