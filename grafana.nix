@@ -109,17 +109,6 @@ in {
           path = "${cfg.state-directory}/database.sqlite";
         };
 
-        provision = {
-          enable = true;
-          datasources.settings.datasources = let
-            mkDatasource = ds: {
-              editable = false;
-              isDefault = ds.default;
-              inherit (ds) name type url;
-            };
-          in map mkDatasource (attrValues cfg.datasources);
-        };
-
         auth = mkIf (!isNull cfg.oauth) {
           signout_redirect_url =
             "https://${cfg.oauth.hostname}/application/o/${cfg.oauth.slug}/end-session/";
@@ -141,6 +130,17 @@ in {
             "'Viewer'"
           ];
         };
+      };
+
+      provision = {
+        enable = true;
+        datasources.settings.datasources = let
+          mkDatasource = ds: {
+            editable = false;
+            isDefault = ds.default;
+            inherit (ds) name type url;
+          };
+        in map mkDatasource (attrValues cfg.datasources);
       };
     };
   };
